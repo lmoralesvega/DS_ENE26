@@ -142,19 +142,24 @@ with col3:
     st.plotly_chart(fig_line, use_container_width=True)
 
 with col4:
-    # Componente 4: Dispersión masiva con opacidad controlada
-    st.subheader("4. Analisis de equidad distributiva")
-    st.markdown("<small>Cada punto es un empleado. Puntos aislados arriba a la izquierda indican inequidad critica.</small>", unsafe_allow_html=True)
+    # Componente 4: Mapa de calor de densidad para escala masiva
+    st.subheader("4. Mapa de densidad de equidad distributiva")
+    st.markdown("<small>Las zonas mas oscuras indican alta concentracion de empleados. Evite cuadrantes iluminados en la esquina superior izquierda (alta saturacion).</small>", unsafe_allow_html=True)
     
-    fig_scatter = px.scatter(
+    fig_density = px.density_heatmap(
         df_filtrado,
         x='Tareas_aceptadas',
         y='Tareas_directas',
-        hover_name='Empleado',
-        color='Area',
-        opacity=0.4,  # 👈 Opacidad baja para que el amontonamiento de miles de puntos revele densidad real
-        color_discrete_sequence=['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a'],
+        nbinsx=15, # Define el tamaño de la cuadrícula en X
+        nbinsy=15, # Define el tamaño de la cuadrícula en Y
+        color_continuous_scale='Blues', # Mantiene tu paleta limitada y profesional
         height=300
     )
-    fig_scatter.update_layout(margin=dict(l=20, r=20, t=10, b=20), xaxis_title="Tareas por iniciativa propia", yaxis_title="Tareas directas")
-    st.plotly_chart(fig_scatter, use_container_width=True)
+    
+    fig_density.update_layout(
+        margin=dict(l=20, r=20, t=10, b=20),
+        xaxis_title="Tareas por iniciativa propia",
+        yaxis_title="Tareas directas",
+        coloraxis_showscale=True # Muestra la regla que dice cuántos empleados representa cada color
+    )
+    st.plotly_chart(fig_density, use_container_width=True)

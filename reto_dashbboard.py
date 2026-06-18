@@ -62,9 +62,13 @@ with col1:
         y='Empleado',
         orientation='h',
         color_discrete_sequence=['#1f77b4'],
-        height=350
+        height=550  # 👈 Aumentamos de 350 a 550 para dar espacio a los 20 nombres
     )
     fig_bar.update_layout(margin=dict(l=20, r=20, t=10, b=20), yaxis_title=None)
+    
+    # 👈 ESTA LÍNEA NUEVA FORZA A PLOTLY A MOSTRAR EL 100% DE LAS ETIQUETAS:
+    fig_bar.update_yaxes(type='category', dtick=1)
+    
     st.plotly_chart(fig_bar, use_container_width=True)
 
 with col2:

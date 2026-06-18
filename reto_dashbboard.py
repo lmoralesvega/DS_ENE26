@@ -116,7 +116,7 @@ with col3:
     fig_line = px.line(
         df_tendencias,
         x='Mes', 
-        y='Ofertas vacantes',
+        y='Ofertas rechazadas',
         color='Área', # Esto crea una línea independiente por cada área
         color_discrete_sequence=['#1f77b4', '#aec7e8', '#ff7f0e', '#444444'], # Paleta limpia y consistente
         height=300

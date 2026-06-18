@@ -94,37 +94,38 @@ with col3:
     st.subheader("3. Tendencia de ofertas rechazadas por área")
     st.markdown("<small>Seguimiento mensual para identificar departamentos con mayor resistencia o riesgo psicosocial.</small>", unsafe_allow_html=True)
     
-    # NUEVOS DATOS SIMULADOS: Estructura en formato largo para múltiples líneas
+    # DATOS SIMULADOS (Versión ultra-segura sin acentos ni espacios en las columnas)
     meses_lista = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'] * 4
-    areas_lista = ['Operaciones']*6 + ['Ventas']*6 + ['Finanzas']*6 + ['Tecnología']*6
+    areas_lista = ['Operaciones']*6 + ['Ventas']*6 + ['Finanzas']*6 + ['Tecnologia']*6
     
-    # Tendencias simuladas (unas suben más que otras para la alerta visual)
     rechazos_lista = [
-        10, 15, 12, 22, 28, 35,  # Operaciones (Hacia arriba)
-        5,  7,  6,  8,  9,  11,  # Ventas (Estable)
-        2,  3,  2,  4,  3,  5,   # Finanzas (Bajo)
-        4,  6,  8,  9,  12, 14   # Tecnología (Moderado)
+        10, 15, 12, 22, 28, 35,  # Operaciones
+        5,  7,  6,  8,  9,  11,  # Ventas
+        2,  3,  2,  4,  3,  5,   # Finanzas
+        4,  6,  8,  9,  12, 14   # Tecnologia
     ]
     
     df_tendencias = pd.DataFrame({
         'Mes': meses_lista,
-        'Área': areas_lista,
-        'Ofertas vacantes': rechazos_lista
+        'Area': areas_lista,
+        'Ofertas_vacantes': rechazos_lista
     })
     
     # Gráfico de líneas multi-serie
     fig_line = px.line(
         df_tendencias,
         x='Mes', 
-        y='Ofertas rechazadas',
-        color='Área', # Esto crea una línea independiente por cada área
-        color_discrete_sequence=['#1f77b4', '#aec7e8', '#ff7f0e', '#444444'], # Paleta limpia y consistente
+        y='Ofertas_vacantes',
+        color='Area', # Al mapear 'Area' sin acento evitamos el error de Plotly
+        color_discrete_sequence=['#1f77b4', '#aec7e8', '#ff7f0e', '#444444'], 
         height=300
     )
     fig_line.update_traces(mode="lines+markers")
     fig_line.update_layout(
         margin=dict(l=20, r=20, t=10, b=20),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1) # Leyenda horizontal para ahorrar espacio
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        xaxis_title=None,
+        yaxis_title="Ofertas vacantes"
     )
     st.plotly_chart(fig_line, use_container_width=True)
 

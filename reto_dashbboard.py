@@ -133,16 +133,3 @@ Original file is located at
 #     fig_scatter.update_layout(margin=dict(l=20, r=20, t=10, b=20))
 #     st.plotly_chart(fig_scatter, use_container_width=True)
 
-import subprocess
-import time
-
-# 1. Arrancar Streamlit en segundo plano
-subprocess.Popen(["streamlit", "run", "app.py"])
-time.sleep(3) # Esperar a que Streamlit encienda bien
-
-# 2. Crear el enlace público con Serveo.net (No requiere token ni cuenta)
-print("👉 TU ENLACE PÚBLICO APARECERÁ ABAJO 👈")
-print("Espera unos segundos a que cargue...")
-print("--------------------------------------------------")
-
-!ssh -o StrictHostKeyChecking=no -R 80:localhost:8501 serveo.net
